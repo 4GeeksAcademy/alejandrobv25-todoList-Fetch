@@ -1,0 +1,88 @@
+import React, { useState } from "react";
+
+export const List = () => {
+    // const [value, setValue] = useState("")
+    // const [todo, setTodo] = useState([])
+    
+    // const createTodo = (e) => {
+    //     if (e.key === "Enter") {
+    //         setTodo((previous) => {
+    //             const newTodo = value;
+    //             const newList = [...previous, newTodo].filter((item) => item);
+    //             return newList;
+    //         });
+    //         setValue("")
+    //     }
+    // }
+   
+    fetch('https://playground.4geeks.com/todo/users/alejandroBs', {
+        method: "GET",
+        headers: {'Content-type': 'aplication/json'}
+        })
+        .then(response => response.json()) 
+        .then(data => {
+            console.log(data);  
+        })
+        .catch(error => {
+        console.log("Error:", error);
+        });
+
+        fetch('https://playground.4geeks.com/todo/users/alejandroBs', {
+            method: 'POST',
+            body: JSON.stringify(data), 
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+            .then(response => {
+              if (!response.ok) throw Error(response.statusText);
+              return response.json();
+            })
+            .then(response => console.log('Success:', response))
+            .catch(error => console.error(error));
+
+            fetch('https://playground.4geeks.com/todo/users/alejandroBs', {
+                method: 'PUT',
+                body: JSON.stringify(data), 
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              })
+                .then(response => {
+                  if (!response.ok) throw Error(response.statusText);
+                  return response.json();
+                })
+                .then(response => console.log('Success:', response))
+                .catch(error => console.error(error));
+
+
+    return (
+        <div className="container ">
+            <h1>Todo List</h1>
+            <ul>
+                <input
+                type="text"
+                placeholder="Lista de tareas"
+                onChange = {(e) => setValue(e.target.value)}
+                value= {value}
+                onKeyUp= {createTodo}
+                />
+                {
+                    todo.map((item)=>(
+                        <li>
+                            {item}
+                            <i onClick={()=>setTodo((previous)=>{
+                                const newList = previous.filter(element => element !== item)
+                                return newList
+                            })}
+                            className="icon fa-solid fa-x">
+                            </i>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+
+
+    )
+}
